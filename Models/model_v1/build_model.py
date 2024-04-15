@@ -60,11 +60,12 @@ class Model(nn.Module):
         race = self.RaceNN(x)
         return age, gender, race
     
-model = Model()
-torch.save(model, '.\\Models\\model_v1\\model_v1.pt')
+if __name__ == '__main__':
+    model = Model()
+    torch.save(model, '.\\Models\\model_v1\\model_v1.pt')
 
-info_path = '.\\Models\\model_v1\\model_v1_info.txt'
-f = open(info_path, 'w')
-model_info = str(summary(model.cuda(), input_size=(256, 3, 128, 128), device='cuda'))
-f.write(model_info)
-f.close()
+    info_path = '.\\Models\\model_v1\\model_v1_info.txt'
+    f = open(info_path, 'w')
+    model_info = str(summary(model.cuda(), input_size=(256, 3, 128, 128), device='cuda'))
+    f.write(model_info)
+    f.close()

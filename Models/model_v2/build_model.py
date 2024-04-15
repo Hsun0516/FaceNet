@@ -32,35 +32,35 @@ class Model(nn.Module):
             nn.Flatten(),
         )
         self.AgeNN = nn.Sequential(
-            nn.Linear(32768, 512),
-            nn.ReLU(),
-            nn.Dropout(0.2),
-            nn.Linear(512, 256),
-            nn.ReLU(),
-            nn.Dropout(0.2),
-            nn.Linear(256, 128),
-            nn.ReLU(),
-            nn.Dropout(0.2),
-            nn.Linear(128, 1)
-        )
-        self.GenderNN = nn.Sequential(
             nn.Linear(32768, 256),
             nn.ReLU(),
             nn.Dropout(0.2),
             nn.Linear(256, 128),
             nn.ReLU(),
             nn.Dropout(0.2),
-            nn.Linear(128, 1),
+            nn.Linear(128, 64),
+            nn.ReLU(),
+            nn.Dropout(0.2),
+            nn.Linear(64, 1)
+        )
+        self.GenderNN = nn.Sequential(
+            nn.Linear(32768, 128),
+            nn.ReLU(),
+            nn.Dropout(0.2),
+            nn.Linear(128, 64),
+            nn.ReLU(),
+            nn.Dropout(0.2),
+            nn.Linear(64, 1),
             nn.Sigmoid()
         )
         self.RaceNN = nn.Sequential(
-            nn.Linear(32768, 256),
+            nn.Linear(32768, 128),
             nn.ReLU(),
             nn.Dropout(0.2),
-            nn.Linear(256, 128),
+            nn.Linear(128, 64),
             nn.ReLU(),
             nn.Dropout(0.2),
-            nn.Linear(128, 5),
+            nn.Linear(64, 5),
             nn.LogSoftmax(dim=1)
         )
 
@@ -71,11 +71,12 @@ class Model(nn.Module):
         race = self.RaceNN(x)
         return age, gender, race
     
-model = Model()
-torch.save(model, '.\\Models\\model_v2\\model_v2.pt')
+if __name__ == '__main__':
+    model = Model()
+    torch.save(model, '.\\Models\\model_v2\\model_v2.pt')
 
-info_path = '.\\Models\\model_v2\\model_v2_info.txt'
-f = open(info_path, 'w')
-model_info = str(summary(model.cuda(), input_size=(256, 3, 128, 128), device='cuda'))
-f.write(model_info)
-f.close()
+    info_path = '.\\Models\\model_v2\\model_v2_info.txt'
+    f = open(info_path, 'w')
+    model_info = str(summary(model.cuda(), input_size=(256, 3, 128, 128), device='cuda'))
+    f.write(model_info)
+    f.close()
