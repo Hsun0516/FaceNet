@@ -49,7 +49,7 @@ Model                                    [256, 1]                  --
 ¢x    ¢|¢wReLU: 2-43                        [256, 128, 13, 13]        --
 ¢x    ¢|¢wFlatten: 2-44                     [256, 21632]              --
 ¢u¢wSequential: 1-3                        [256, 1]                  --
-¢x    ¢|¢wLinear: 2-45                      [256, 256]                8,388,864
+¢x    ¢|¢wLinear: 2-45                      [256, 256]                13,926,656
 ¢x    ¢|¢wReLU: 2-46                        [256, 256]                --
 ¢x    ¢|¢wDropout: 2-47                     [256, 256]                --
 ¢x    ¢|¢wLinear: 2-48                      [256, 128]                32,896
@@ -60,7 +60,7 @@ Model                                    [256, 1]                  --
 ¢x    ¢|¢wDropout: 2-53                     [256, 64]                 --
 ¢x    ¢|¢wLinear: 2-54                      [256, 1]                  65
 ¢u¢wSequential: 1-4                        [256, 1]                  --
-¢x    ¢|¢wLinear: 2-55                      [256, 128]                4,194,432
+¢x    ¢|¢wLinear: 2-55                      [256, 128]                6,963,328
 ¢x    ¢|¢wReLU: 2-56                        [256, 128]                --
 ¢x    ¢|¢wDropout: 2-57                     [256, 128]                --
 ¢x    ¢|¢wLinear: 2-58                      [256, 64]                 8,256
@@ -69,7 +69,7 @@ Model                                    [256, 1]                  --
 ¢x    ¢|¢wLinear: 2-61                      [256, 1]                  65
 ¢x    ¢|¢wSigmoid: 2-62                     [256, 1]                  --
 ¢u¢wSequential: 1-5                        [256, 5]                  --
-¢x    ¢|¢wLinear: 2-63                      [256, 128]                4,194,432
+¢x    ¢|¢wLinear: 2-63                      [256, 128]                6,963,328
 ¢x    ¢|¢wReLU: 2-64                        [256, 128]                --
 ¢x    ¢|¢wDropout: 2-65                     [256, 128]                --
 ¢x    ¢|¢wLinear: 2-66                      [256, 64]                 8,256
@@ -78,13 +78,13 @@ Model                                    [256, 1]                  --
 ¢x    ¢|¢wLinear: 2-69                      [256, 5]                  325
 ¢x    ¢|¢wLogSoftmax: 2-70                  [256, 5]                  --
 ==========================================================================================
-Total params: 17,921,095
-Trainable params: 17,921,095
+Total params: 28,996,679
+Trainable params: 28,996,679
 Non-trainable params: 0
-Total mult-adds (Units.GIGABYTES): 513.09
+Total mult-adds (Units.GIGABYTES): 515.92
 ==========================================================================================
 Input size (MB): 50.33
 Forward/backward pass size (MB): 11534.35
-Params size (MB): 71.68
-Estimated Total Size (MB): 11656.37
+Params size (MB): 115.99
+Estimated Total Size (MB): 11700.67
 ==========================================================================================

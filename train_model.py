@@ -11,11 +11,11 @@ from tqdm import tqdm
 # Hyper Parameters
 DEVICE = torch.device('cuda')
 EPOCHS = 50
-TRAIN_BATCH_SIZE = 256
+TRAIN_BATCH_SIZE = 128
 VAL_BATCH_SIZE = 64
-MODEL_VERSION = 2
+MODEL_VERSION = 3
 TRAINED_VERSION = ""
-from Models.model_v1.build_model import Model
+from Models.model_v3.build_model import Model
 print(torch.cuda.get_device_name(DEVICE))
 
 # Load Data
