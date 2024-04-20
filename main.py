@@ -8,10 +8,14 @@ import time
 
 from Models.model_v3.build_model import Model
 model = torch.load('Models\\model_v3\\model_v3_trained.pt')
+DEVICE = torch.device('cuda')
+race_dict = {0: "White", 1: "Black", 2: "Asian", 3: "Indian", 4: "Others"}
 
 root = Tk()
 root.geometry("800x600")
+root.title("FaceNet - Age & Gender & Race Estimation")
 root.config(bg='white')
+root.iconbitmap("icon.ico")
 main_frame = Frame(root)
 main_frame.grid(row=0, column=0)
 
@@ -42,25 +46,33 @@ def show_frame():
     img = cv2.flip(img, 1)
 
     faces = face_cascade.detectMultiScale(img)
-    if faces.any():
-        for (x, y, w, h) in [faces[0]]:
-            face_img = img[x:x+w, y:y+h]
-            face_img = cv2.resize(face_img, (128, 128))
-            face_img = np.asarray(face_img)
-            face_img = np.array([face_img]).astype(np.float32)
-            face_input = torch.from_numpy(face_img)
-            print(face_input.shape)
-            age, gender, race = model(face_input)
-            cv2.rectangle(img, (x, y), (x+w, y+h), (255, 255, 255), 2)
+    try:
+        if len(faces):
+            for (x, y, w, h) in faces:
+                face_img = img[x:x+w, y:y+h]
+                face_img = cv2.resize(face_img, (128, 128))
+                face_img = np.asarray([face_img]).astype(np.float32)
+                face_img = torch.from_numpy(face_img)
+                face_input = face_img.permute(0, 3, 1, 2)
+                face_input = face_input.to(DEVICE)
+
+                age, gender, race = model(face_input)
+                age = str(round(age.item()**0.5))
+                gender = "Male" if gender.item() <= 0.5 else "Female"
+                race = torch.argmax(race)
+                race = race_dict[race.item()]
+                result = age + " " + gender + " " + race
+
+                cv2.rectangle(img, (x, y), (x+w, y+h), (255, 255, 255), 2)
+                cv2.putText(img, result, (x, y-5), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (255, 255, 255), 2, cv2.LINE_AA)
+    except:
+        pass
 
     img = Image.fromarray(img)
     imgtk = ImageTk.PhotoImage(image=img)
     cam_label.imgtk = imgtk
     cam_label.configure(image=imgtk)
     cam_label.after(10, show_frame)
-
-# Predict Button Function
-
 
 # Main Loop
 show_frame()
